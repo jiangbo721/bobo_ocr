@@ -18,6 +18,7 @@ class Application(tornado.web.Application):
         # 应用配置
         settings = {
             "port": 8000,
+            "template_path": "tpl"
         }
 
         handlers = [

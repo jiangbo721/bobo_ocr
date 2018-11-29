@@ -17,7 +17,7 @@ class IndexHandler(tornado.web.RequestHandler):
         """
         首页
         """
-        self.finish('hello bobo')
+        self.render("index/index.html")
 
     def post(self):
         """

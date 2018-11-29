@@ -43,9 +43,8 @@ class ImageService(object):
         result_list = []
         for word in baidu_result["words_result"]:
             result_list.append(word["words"])
-        result_str = "\n".join(result_list)
 
-        return result_str
+        return result_list
 
     def _image_save(self, image_content):
         """

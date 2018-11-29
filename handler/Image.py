@@ -30,8 +30,10 @@ class ImageHandler(tornado.web.RequestHandler):
         图片上传
         """
         image = self.request.files.get("image")
+        if not image:
+            self.finish("对不起，未检测到您上传的图片")
         image_content = image[0]["body"]
 
         data = ImageService().image_upload(image_content)
 
-        self.finish(data)
+        self.render("image/ocr_result.html", data=data)
