@@ -7,7 +7,6 @@ import tornado.httpserver
 import tornado.ioloop
 import tornado.web
 
-from tornado.options import options
 
 from handler.Image import ImageHandler
 from handler.Index import IndexHandler
