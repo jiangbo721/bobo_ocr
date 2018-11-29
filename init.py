@@ -7,7 +7,7 @@ import tornado.ioloop
 import tornado.httpserver
 import tornado.web
 
-from handler.Image import ImageHandler
+from handler.character import CharacterHandler
 from handler.Index import IndexHandler
 
 class Application(tornado.web.Application):
@@ -24,7 +24,7 @@ class Application(tornado.web.Application):
 
         handlers = [
             (r"/", IndexHandler),
-            (r"/image/", ImageHandler),
+            (r"/char/", CharacterHandler),
 
         ]
 

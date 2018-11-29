@@ -5,12 +5,12 @@ Index Handler
 """
 import tornado.web
 
-from service.Image import ImageService
+from service.character import CharacterService
 
 
 class IndexHandler(tornado.web.RequestHandler):
     """
-    Index handler
+    首页 handler
     """
 
     def get(self):
@@ -21,13 +21,6 @@ class IndexHandler(tornado.web.RequestHandler):
 
     def post(self):
         """
-        图片上传
+        首页
         """
-        # self.finish('hello bobo')
-
-        image = self.request.files.get("image")
-        image_content = image[0]["body"]
-
-        data = ImageService().image_upload(image_content)
-
-        self.finish(data)
+        self.finish('hello bobo')

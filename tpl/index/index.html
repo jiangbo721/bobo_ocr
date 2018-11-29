@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
     <meta charset="UTF-8">
     <title>波波文字识别</title>
 </head>
 <body>
     <h1>波波文字识别</h1>
     <h2>请上传您要识别文字的图片：</h2>
-    <form action="http://106.12.206.135:8000/image/" method="post" enctype="multipart/form-data">
+    <form action="http://106.12.206.135:8000/char/" method="post" enctype="multipart/form-data">
         <input name="image" type="file">
         <input type="submit" value="提交">
     </form>

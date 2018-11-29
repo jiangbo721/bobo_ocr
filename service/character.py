@@ -1,24 +1,22 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
-面单图片识别处理服务
+文字识别处理服务
 """
 import datetime
 import os
 import uuid
 
-from aip.ocr import AipOcr
+from service.baidu_ocr import ocr
 
-class ImageService(object):
+
+class CharacterService(object):
     """
-    图片识别处理服务
+    文字识别服务
     """
     def __init__(self):
-        self.UPLOAD_DIR_PATH = "/home/jlb/桌面"
-        self.ocr = AipOcr("10683930",
-                          "KWupRWsdl3zgmy01HBSgVqup",
-                          "hNVMDcsLnPenwyx4XGOa7v3ne8cdOvUy"
-                          )
+        self.UPLOAD_DIR_PATH = "/data/ocr/char"
+        self.ocr = ocr
 
     @property
     def _unique_name(self):
