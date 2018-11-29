@@ -4,6 +4,7 @@
 启动服务
 """
 import tornado.ioloop
+import tornado.httpserver
 import tornado.web
 
 from handler.Image import ImageHandler
@@ -32,8 +33,9 @@ class Application(tornado.web.Application):
 
 if __name__ == "__main__":
     app = Application()
+    http_server = tornado.httpserver.HTTPServer(app)
 
-    app.listen(8000)
+    http_server.listen(8000)
 
     tornado.ioloop.IOLoop.current().start()
 
