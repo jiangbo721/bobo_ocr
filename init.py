@@ -3,10 +3,8 @@
 """
 启动服务
 """
-import tornado.httpserver
 import tornado.ioloop
 import tornado.web
-
 
 from handler.Image import ImageHandler
 from handler.Index import IndexHandler
@@ -30,12 +28,11 @@ class Application(tornado.web.Application):
 
         tornado.web.Application.__init__(self, handlers, **settings)
 
+
 if __name__ == "__main__":
     app = Application()
 
-    http_server = tornado.httpserver.HTTPServer(app)
-
-    http_server.listen(8000)
+    app.listen(8000)
 
     tornado.ioloop.IOLoop.current().start()
 
