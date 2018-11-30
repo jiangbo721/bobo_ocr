@@ -7,18 +7,13 @@ import datetime
 import os
 import uuid
 
-from service.baidu_ocr import ocr
-from service.base import BaseService
 
-
-class CharacterService(BaseService):
+class BaseService(object):
     """
-    文字识别服务
+    基础服务
     """
     def __init__(self):
-        super(CharacterService, self).__init__()
-        self.UPLOAD_DIR_PATH = "/data/ocr/char"
-        self.ocr = ocr
+        self.UPLOAD_DIR_PATH = "/data/ocr"
 
     @property
     def _unique_name(self):
@@ -26,25 +21,6 @@ class CharacterService(BaseService):
         生成唯一文件名
         """
         return str(uuid.uuid4()).replace("-", "")
-
-    def parse_image(self, image_content):
-        """
-        图片上传
-        :param str image_content: 图片二进制内容
-        :return dict: result 识别结果
-        """
-        # 获取识别结果
-        baidu_result = self.ocr.basicAccurate(image_content)
-
-        # 保存图片
-        self._image_save(image_content)
-
-        # 解析结果
-        result_list = []
-        for word in baidu_result["words_result"]:
-            result_list.append(word["words"])
-
-        return result_list
 
     def _image_save(self, image_content):
         """

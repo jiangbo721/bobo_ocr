@@ -3,12 +3,16 @@
 """
 启动服务
 """
+import logging
+
 import tornado.ioloop
 import tornado.httpserver
 import tornado.web
 
 from handler.character import CharacterHandler
 from handler.Index import IndexHandler
+from handler.image import ImageHandler
+
 
 class Application(tornado.web.Application):
     """
@@ -24,7 +28,8 @@ class Application(tornado.web.Application):
 
         handlers = [
             (r"/", IndexHandler),
-            (r"/char/", CharacterHandler),
+            (r"/character/", CharacterHandler),
+            (r"/image/", ImageHandler),
 
         ]
 
@@ -32,10 +37,12 @@ class Application(tornado.web.Application):
 
 
 if __name__ == "__main__":
+    logging.warning(" bobo_ocr is running!!")
     app = Application()
     http_server = tornado.httpserver.HTTPServer(app)
 
     http_server.listen(8000)
 
     tornado.ioloop.IOLoop.current().start()
+
 

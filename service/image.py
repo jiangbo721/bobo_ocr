@@ -1,24 +1,26 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
-文字识别处理服务
+图像识别处理服务
 """
 import datetime
+import logging
 import os
 import uuid
 
-from service.baidu_ocr import ocr
+from service.baidu_ocr import image
 from service.base import BaseService
+from service.defines import RELIABILITY, IMAGE_RESULT_TITLE_PATTERN, IMAGE_RESULT_ITEM_PATTERN, PERCENT_RELIABILITY
 
 
-class CharacterService(BaseService):
+class ImageService(BaseService):
     """
-    文字识别服务
+    图像识别处理服务
     """
     def __init__(self):
-        super(CharacterService, self).__init__()
-        self.UPLOAD_DIR_PATH = "/data/ocr/char"
-        self.ocr = ocr
+        super(ImageService, self).__init__()
+        self.UPLOAD_DIR_PATH = "/data/ocr/image"
+        self.image = image
 
     @property
     def _unique_name(self):
@@ -33,16 +35,24 @@ class CharacterService(BaseService):
         :param str image_content: 图片二进制内容
         :return dict: result 识别结果
         """
+        logging.warning("进入图像识别接口service")
         # 获取识别结果
-        baidu_result = self.ocr.basicAccurate(image_content)
-
+        baidu_result = self.image.advancedGeneral(image_content)
+        print baidu_result
         # 保存图片
         self._image_save(image_content)
 
         # 解析结果
         result_list = []
-        for word in baidu_result["words_result"]:
-            result_list.append(word["words"])
+        result_num = baidu_result["result_num"]
+        result_list.append(IMAGE_RESULT_TITLE_PATTERN.format(result_num, PERCENT_RELIABILITY))
+        for index, item in enumerate(baidu_result['result'], 1):
+            score = item["score"]
+            if score >= RELIABILITY:
+                root = item["root"].encode("utf8")
+                name = item["keyword"].encode("utf8")
+                result_list.append(IMAGE_RESULT_ITEM_PATTERN.format(
+                    index, name, root, str(score * 100) + "%"))
 
         return result_list
 

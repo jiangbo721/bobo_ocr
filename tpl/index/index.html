@@ -1,16 +1,59 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh">
 <head>
     <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
     <meta charset="UTF-8">
-    <title>波波文字识别</title>
+    <title>波波图像识别</title>
 </head>
 <body>
-    <h1>波波文字识别</h1>
-    <h2>请上传您要识别文字的图片：</h2>
-    <form action="http://106.12.206.135:8000/char/" method="post" enctype="multipart/form-data">
-        <input name="image" type="file">
+    <h1>波波图像识别</h1>
+    <form action="/" method="post" enctype="multipart/form-data"  onsubmit="return push_img(this);">
+        请选择您要选择的识别类型：
+        <select id="ocr_type" name="ocr_type" oninput="set_sub_type(this, this.form.ocr_sub_type);" title="识别类型">
+            <option value="0" selected>请选择识别的类型</option>
+            <option value="character">文字识别</option>
+            <option value="image">图像识别</option>
+        </select>
+        <br />
+        请选择您要识别的选项：
+        <select id="ocr_sub_type" name="ocr_sub_type"  title="识别选项">
+            <option value="0">请选择识别的选项</option>
+        </select>
+        <br>
+        请上传图片：<input name="image" type="file"><br>
         <input type="submit" value="提交">
     </form>
+    <script>
+        OCR_SUB_TYPE = {};
+        OCR_SUB_TYPE['character'] = new Array(['character', '通用文字识别']);
+        OCR_SUB_TYPE['image'] = new Array(['image', '通用图像识别']);
+        ACTION_URL = "http://127.0.0.1:8000/";
+
+        function set_sub_type(ocr_type, ocr_sub_type) {
+            let sub_index;
+
+            const type_value = ocr_type.value;
+            console.log('type_value', type_value);
+            ocr_sub_type.length = 1;
+
+            if (type_value === '0') return;
+            if (typeof(OCR_SUB_TYPE[type_value]) === 'undefined') return;
+            console.log('OCR_SUB_TYPE[type_value]', OCR_SUB_TYPE[type_value]);
+            console.log('OCR_SUB_TYPE[type_value][0][0]', OCR_SUB_TYPE[type_value][0][0]);
+            console.log('OCR_SUB_TYPE[type_value][0][1]', OCR_SUB_TYPE[type_value][0][1]);
+            for (i = 0; i < OCR_SUB_TYPE[type_value].length; i++) {
+                sub_index = i + 1;
+                new_option = new Option();
+                new_option.value = OCR_SUB_TYPE[type_value][i][0];
+                new_option.text = OCR_SUB_TYPE[type_value][i][1];
+                ocr_sub_type.append(new_option)
+            }
+        }
+        set_sub_type(document.getElementById("ocr_type"), document.getElementById("ocr_sub_type"));
+        function push_img(e) {
+            alert(ACTION_URL + e.ocr_sub_type.value + "/");
+            e.setAttribute("action", ACTION_URL + e.ocr_sub_type.value + "/")
+        }
+    </script>
 </body>
 </html>
