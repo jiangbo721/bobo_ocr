@@ -53,6 +53,7 @@ class ImageService(BaseService):
                 name = item["keyword"].encode("utf8")
                 result_list.append(IMAGE_RESULT_ITEM_PATTERN.format(
                     index, name, root, str(score * 100) + "%"))
+        logging.info("The image ocr character is : {}", result_list)
 
         return result_list
 
