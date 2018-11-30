@@ -9,5 +9,10 @@
     {% for str in data %}
         {{str}}<br>
     {% end %}
+    <div id="foot" style="position: fixed; bottom: 0;"></div>
+<script src="http://pv.sohu.com/cityjson?ie=utf-8"></script>
+<script>
+    document.getElementById("foot").innerHTML = returnCitySN['cip'] + returnCitySN['cname'];
+</script>
 </body>
 </html>

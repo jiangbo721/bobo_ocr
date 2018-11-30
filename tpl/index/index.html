@@ -23,11 +23,17 @@
         请上传图片：<input name="image" type="file"><br>
         <input type="submit" value="提交">
     </form>
+    <div id="foot" style="position: fixed; bottom: 0;"></div>
+    <script src="http://pv.sohu.com/cityjson?ie=utf-8"></script>
     <script>
+        document.getElementById("foot").innerHTML = returnCitySN['cip'] + returnCitySN['cname'];
         OCR_SUB_TYPE = {};
         OCR_SUB_TYPE['character'] = new Array(['character', '通用文字识别']);
         OCR_SUB_TYPE['image'] = new Array(['image', '通用图像识别']);
+
         ACTION_URL = "http://106.12.206.135:8000/";
+
+        // ACTION_URL = "http://127.0.0.1:8000/";
 
         function set_sub_type(ocr_type, ocr_sub_type) {
             let sub_index;
@@ -51,7 +57,6 @@
         }
         set_sub_type(document.getElementById("ocr_type"), document.getElementById("ocr_sub_type"));
         function push_img(e) {
-            alert(ACTION_URL + e.ocr_sub_type.value + "/");
             e.setAttribute("action", ACTION_URL + e.ocr_sub_type.value + "/")
         }
     </script>

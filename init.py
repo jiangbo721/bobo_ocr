@@ -4,15 +4,19 @@
 启动服务
 """
 import logging
+from logging.config import dictConfig
 
 import tornado.ioloop
 import tornado.httpserver
 import tornado.web
 
+from conf.log_cnf import logging_config
 from handler.character import CharacterHandler
 from handler.Index import IndexHandler
 from handler.image import ImageHandler
 
+
+dictConfig(logging_config)
 
 class Application(tornado.web.Application):
     """
@@ -23,7 +27,7 @@ class Application(tornado.web.Application):
         # 应用配置
         settings = {
             "port": 8000,
-            "template_path": "tpl"
+            "template_path": "tpl",
         }
 
         handlers = [
