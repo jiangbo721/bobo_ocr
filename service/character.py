@@ -4,6 +4,7 @@
 文字识别处理服务
 """
 import datetime
+import logging
 import os
 import uuid
 
@@ -43,7 +44,7 @@ class CharacterService(BaseService):
         result_list = []
         for word in baidu_result["words_result"]:
             result_list.append(word["words"])
-
+        logging.info("The image ocr character is : {}", result_list)
         return result_list
 
     def _image_save(self, image_content):
