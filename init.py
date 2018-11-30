@@ -4,19 +4,34 @@
 启动服务
 """
 import logging
-from logging.config import dictConfig
 
 import tornado.ioloop
 import tornado.httpserver
 import tornado.web
 
-from conf.log_cnf import logging_config
 from handler.character import CharacterHandler
 from handler.Index import IndexHandler
 from handler.image import ImageHandler
 
 
-dictConfig(logging_config)
+logging.basicConfig(level=logging.DEBUG, filename='./logfile/logger.log')
+
+root_logger = logging.getLogger()
+
+mine_logger = logging.getLogger('mine')
+mine_logger.setLevel(logging.INFO)
+
+console_handler = logging.StreamHandler()
+file_handler = logging.FileHandler('./logfile/logger.log')
+
+formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+
+console_handler.setFormatter(formatter)
+file_handler.setFormatter(formatter)
+
+mine_logger.addHandler(console_handler)
+mine_logger.addHandler(file_handler)
+
 
 class Application(tornado.web.Application):
     """
@@ -41,7 +56,7 @@ class Application(tornado.web.Application):
 
 
 if __name__ == "__main__":
-    logging.warning(" bobo_ocr is running!!")
+    mine_logger.warning(" bobo_ocr is running!!")
     app = Application()
     http_server = tornado.httpserver.HTTPServer(app)
 

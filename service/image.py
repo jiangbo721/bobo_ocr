@@ -12,6 +12,7 @@ from service.baidu_ocr import image
 from service.base import BaseService
 from service.defines import RELIABILITY, IMAGE_RESULT_TITLE_PATTERN, IMAGE_RESULT_ITEM_PATTERN, PERCENT_RELIABILITY
 
+mine_logger = logging.getLogger('mine')
 
 class ImageService(BaseService):
     """
@@ -35,7 +36,7 @@ class ImageService(BaseService):
         :param str image_content: 图片二进制内容
         :return dict: result 识别结果
         """
-        logging.warning("进入图像识别接口service")
+        mine_logger.warning("进入图像识别接口service")
         # 获取识别结果
         baidu_result = self.image.advancedGeneral(image_content)
         print baidu_result
@@ -53,7 +54,7 @@ class ImageService(BaseService):
                 name = item["keyword"].encode("utf8")
                 result_list.append(IMAGE_RESULT_ITEM_PATTERN.format(
                     index, name, root, str(score * 100) + "%"))
-        logging.info("The image ocr character is : {}", result_list)
+        mine_logger.warning("The image ocr character is : {}", str(result_list))
 
         return result_list
 

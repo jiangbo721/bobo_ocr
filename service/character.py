@@ -11,6 +11,7 @@ import uuid
 from service.baidu_ocr import ocr
 from service.base import BaseService
 
+mine_logger = logging.getLogger('mine')
 
 class CharacterService(BaseService):
     """
@@ -44,7 +45,7 @@ class CharacterService(BaseService):
         result_list = []
         for word in baidu_result["words_result"]:
             result_list.append(word["words"])
-        logging.info("The image ocr character is : {}", result_list)
+        mine_logger.warning("The image ocr character is : {}", str(result_list))
         return result_list
 
     def _image_save(self, image_content):

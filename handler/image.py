@@ -10,6 +10,8 @@ import tornado.web
 from service.image import ImageService
 
 
+mine_logger = logging.getLogger('mine')
+
 class ImageHandler(tornado.web.RequestHandler):
     """
     图像识别接口
@@ -24,7 +26,7 @@ class ImageHandler(tornado.web.RequestHandler):
         """
         图片上传
         """
-        logging.warning("进入图像识别接口handler")
+        mine_logger.warning("进入图像识别接口handler")
         image = self.request.files.get("image")
         if not image:
             self.finish("对不起，未检测到您上传的图片")

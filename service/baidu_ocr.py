@@ -6,14 +6,11 @@
 from aip.imageclassify import AipImageClassify
 from aip.ocr import AipOcr
 
-ocr = AipOcr(
-    "10683930",
-    "KWupRWsdl3zgmy01HBSgVqup",
-    "hNVMDcsLnPenwyx4XGOa7v3ne8cdOvUy"
-)
 
-image = AipImageClassify(
-    "10683930",
-    "KWupRWsdl3zgmy01HBSgVqup",
-    "hNVMDcsLnPenwyx4XGOa7v3ne8cdOvUy"
-)
+APP_ID = "10683930"
+API_KEY = "KWupRWsdl3zgmy01HBSgVqup"
+SECRET_KEY = "hNVMDcsLnPenwyx4XGOa7v3ne8cdOvUy"
+
+ocr = AipOcr(APP_ID, API_KEY, SECRET_KEY)
+
+image = AipImageClassify(APP_ID, API_KEY, SECRET_KEY)
