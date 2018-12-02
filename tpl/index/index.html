@@ -28,7 +28,7 @@
     <script>
         document.getElementById("foot").innerHTML = returnCitySN['cip'] + returnCitySN['cname'];
         OCR_SUB_TYPE = {};
-        OCR_SUB_TYPE['character'] = new Array(['character', '通用文字识别']);
+        OCR_SUB_TYPE['character'] = [['basic_accurate', '通用文字识别'], ['idcard', '身份证识别']];
         OCR_SUB_TYPE['image'] = new Array(['image', '通用图像识别']);
 
         ACTION_URL = "http://106.12.206.135:8000/";
@@ -57,7 +57,7 @@
         }
         set_sub_type(document.getElementById("ocr_type"), document.getElementById("ocr_sub_type"));
         function push_img(e) {
-            e.setAttribute("action", ACTION_URL + e.ocr_sub_type.value + "/")
+            e.setAttribute("action", ACTION_URL + e.ocr_type.value + "/" + e.ocr_sub_type.value)
         }
     </script>
 </body>

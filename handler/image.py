@@ -5,24 +5,24 @@
 """
 import logging
 
-import tornado.web
-
+from handler.base import BaseHandler
 from service.image import ImageService
 
 
 mine_logger = logging.getLogger('mine')
 
-class ImageHandler(tornado.web.RequestHandler):
+
+class ImageHandler(BaseHandler):
     """
     图像识别接口
     """
-    def get(self):
+    def get(self, module):
         """
         图片上传
         """
         self.finish('please post')
 
-    def post(self):
+    def post(self, module):
         """
         图片上传
         """

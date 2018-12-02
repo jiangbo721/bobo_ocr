@@ -3,12 +3,10 @@
 """
 Index Handler
 """
-import tornado.web
-
-from service.character import CharacterService
+from handler.base import BaseHandler
 
 
-class IndexHandler(tornado.web.RequestHandler):
+class IndexHandler(BaseHandler):
     """
     首页 handler
     """
@@ -19,8 +17,8 @@ class IndexHandler(tornado.web.RequestHandler):
         """
         self.render("index/index.html")
 
-    def post(self):
+    def post(self, module):
         """
         首页
         """
-        self.finish('hello bobo')
+        self.render("index/index.html")

@@ -10,7 +10,7 @@ import tornado.httpserver
 import tornado.web
 
 from handler.character import CharacterHandler
-from handler.Index import IndexHandler
+from handler.index import IndexHandler
 from handler.image import ImageHandler
 
 
@@ -47,8 +47,8 @@ class Application(tornado.web.Application):
 
         handlers = [
             (r"/", IndexHandler),
-            (r"/character/", CharacterHandler),
-            (r"/image/", ImageHandler),
+            (r"/character(/[a-z_A-Z/]*)?", CharacterHandler),
+            (r"/image(/[a-z_A-Z/]*)?", ImageHandler),
 
         ]
 

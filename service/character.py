@@ -4,14 +4,17 @@
 文字识别处理服务
 """
 import datetime
+import json
 import logging
 import os
 import uuid
 
 from service.baidu_ocr import ocr
 from service.base import BaseService
+from service.defines import ID_CARD_SIDE
 
 mine_logger = logging.getLogger('mine')
+
 
 class CharacterService(BaseService):
     """
@@ -19,7 +22,7 @@ class CharacterService(BaseService):
     """
     def __init__(self):
         super(CharacterService, self).__init__()
-        self.UPLOAD_DIR_PATH = "/data/ocr/char"
+        self.UPLOAD_DIR_PATH = "/data/ocr/character"
         self.ocr = ocr
 
     @property
@@ -28,25 +31,6 @@ class CharacterService(BaseService):
         生成唯一文件名
         """
         return str(uuid.uuid4()).replace("-", "")
-
-    def parse_image(self, image_content):
-        """
-        图片上传
-        :param str image_content: 图片二进制内容
-        :return dict: result 识别结果
-        """
-        # 获取识别结果
-        baidu_result = self.ocr.basicAccurate(image_content)
-
-        # 保存图片
-        self._image_save(image_content)
-
-        # 解析结果
-        result_list = []
-        for word in baidu_result["words_result"]:
-            result_list.append(word["words"])
-        mine_logger.warning("The image ocr character is : {}", str(result_list))
-        return result_list
 
     def _image_save(self, image_content):
         """
@@ -65,3 +49,42 @@ class CharacterService(BaseService):
             image_fd.write(image_content)
 
         return file_path
+
+    def basic_accurate(self, image_content):
+        """
+        通用文字识别(高精度)
+        :param str image_content: 图片二进制内容
+        :return dict: result 识别结果
+        """
+        # 获取识别结果
+        baidu_result = self.ocr.basicAccurate(image_content)
+
+        # 保存图片
+        self._image_save(image_content)
+
+        # 解析结果
+        result_list = []
+        for word in baidu_result["words_result"]:
+            result_list.append(word["words"])
+        mine_logger.warning("The image ocr character is : {}", json.dumps(result_list))
+        return result_list
+
+    def idcard(self, image_content, id_card_side=ID_CARD_SIDE.FRONT.code):
+        """
+        身份证识别
+        :param str image_content: 图片二进制内容
+        :param id_card_side: 身份证正反面
+        :return dict: result 识别结果
+        """
+        # 获取识别结果
+        baidu_result = self.ocr.idcard(image_content, id_card_side)
+        print baidu_result
+        # 保存图片
+        self._image_save(image_content)
+
+        # 解析结果
+        result_list = []
+        for word in baidu_result["words_result"]:
+            result_list.append(word["words"])
+        mine_logger.warning("The image ocr character is : {}", str(result_list))
+        return result_list

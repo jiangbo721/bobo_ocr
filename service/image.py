@@ -4,6 +4,7 @@
 图像识别处理服务
 """
 import datetime
+import json
 import logging
 import os
 import uuid
@@ -54,7 +55,7 @@ class ImageService(BaseService):
                 name = item["keyword"].encode("utf8")
                 result_list.append(IMAGE_RESULT_ITEM_PATTERN.format(
                     index, name, root, str(score * 100) + "%"))
-        mine_logger.warning("The image ocr character is : {}", str(result_list))
+        mine_logger.warning("The image ocr character is : {}", json.dumps(result_list))
 
         return result_list
 
