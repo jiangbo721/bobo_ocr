@@ -3,34 +3,15 @@
 """
 启动服务
 """
-import logging
-
 import tornado.ioloop
 import tornado.httpserver
 import tornado.web
 
+from conf.log import mine_logger
 from handler.character import CharacterHandler
 from handler.index import IndexHandler
 from handler.image import ImageHandler
-
-
-logging.basicConfig(level=logging.DEBUG, filename='./logfile/logger.log')
-
-root_logger = logging.getLogger()
-
-mine_logger = logging.getLogger('mine')
-mine_logger.setLevel(logging.INFO)
-
-console_handler = logging.StreamHandler()
-file_handler = logging.FileHandler('./logfile/logger.log')
-
-formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-
-console_handler.setFormatter(formatter)
-file_handler.setFormatter(formatter)
-
-mine_logger.addHandler(console_handler)
-mine_logger.addHandler(file_handler)
+from handler.user import UserHandler
 
 
 class Application(tornado.web.Application):
@@ -43,10 +24,13 @@ class Application(tornado.web.Application):
         settings = {
             "port": 8000,
             "template_path": "tpl",
+            "static_path": "static",
+            "login_url": "http://106.12.206.135/user/login",
         }
 
         handlers = [
             (r"/", IndexHandler),
+            (r"/user(/[a-z_A-Z/]*)?", UserHandler),
             (r"/character(/[a-z_A-Z/]*)?", CharacterHandler),
             (r"/image(/[a-z_A-Z/]*)?", ImageHandler),
 
@@ -63,5 +47,3 @@ if __name__ == "__main__":
     http_server.listen(8000)
 
     tornado.ioloop.IOLoop.current().start()
-
-
