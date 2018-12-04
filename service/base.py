@@ -4,6 +4,7 @@
 文字识别处理服务
 """
 import datetime
+import logging
 import os
 import uuid
 
@@ -14,6 +15,7 @@ class BaseService(object):
     """
     def __init__(self):
         self.UPLOAD_DIR_PATH = "/data/ocr"
+        self.log = logging.getLogger('mine')
 
     @property
     def _unique_name(self):
