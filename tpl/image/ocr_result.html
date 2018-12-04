@@ -1,18 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>您图片的识别结果为</title>
-</head>
-<body>
+{% extends "../base.html" %}
+{% block title %}您图片的识别结果为{%end%}
+{% block js %}
+    <script src="http://pv.sohu.com/cityjson?ie=utf-8"></script>
+    <script>
+        document.getElementById("foot").innerHTML = returnCitySN['cip'] + returnCitySN['cname'];
+    </script>
+{% end %}
+{% block body%}
     <h2>您图片的识别结果为:</h2><br>
     {% for str in data %}
         {{str}}<br>
     {% end %}
     <div id="foot" style="position: fixed; bottom: 0;"></div>
-<script src="http://pv.sohu.com/cityjson?ie=utf-8"></script>
-<script>
-    document.getElementById("foot").innerHTML = returnCitySN['cip'] + returnCitySN['cname'];
-</script>
-</body>
-</html>
+{% end %}

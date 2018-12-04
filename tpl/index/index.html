@@ -1,11 +1,8 @@
-<!DOCTYPE html>
-<html lang="zh">
-<head>
-    <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-    <meta charset="UTF-8">
-    <title>波波图像识别</title>
-</head>
-<body>
+{% extends "../base.html" %}
+{% block title %}波波图像识别{%end%}
+{% block js %}
+{% end %}
+{% block body%}
     <h1>波波图像识别</h1>
     <form action="/" method="post" enctype="multipart/form-data"  onsubmit="return push_img(this);">
         请选择您要选择的识别类型：
@@ -60,5 +57,4 @@
             e.setAttribute("action", ACTION_URL + e.ocr_type.value + "/" + e.ocr_sub_type.value)
         }
     </script>
-</body>
-</html>
+{% end %}
