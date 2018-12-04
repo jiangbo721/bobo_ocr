@@ -3,17 +3,12 @@
 """
 文字识别处理服务
 """
-import datetime
 import json
 import logging
-import os
-import uuid
 
 from service.baidu_ocr import ocr
 from service.base import BaseService
 from service.defines import ID_CARD_SIDE
-
-mine_logger = logging.getLogger('mine')
 
 
 class CharacterService(BaseService):
@@ -24,31 +19,7 @@ class CharacterService(BaseService):
         super(CharacterService, self).__init__()
         self.UPLOAD_DIR_PATH = "/data/ocr/character"
         self.ocr = ocr
-
-    @property
-    def _unique_name(self):
-        """
-        生成唯一文件名
-        """
-        return str(uuid.uuid4()).replace("-", "")
-
-    def _image_save(self, image_content):
-        """
-        保存图片
-        :param image_content:
-        :return str: 图片路径
-        """
-        # 创建文件路径
-        dir_path = os.path.join(self.UPLOAD_DIR_PATH, datetime.datetime.now().strftime("%Y%m%d"))
-        if not os.path.exists(dir_path):
-            os.makedirs(dir_path)
-        file_path = os.path.join(dir_path, self._unique_name + ".jpg")
-
-        # 保存图片
-        with open(file_path, "wb") as image_fd:
-            image_fd.write(image_content)
-
-        return file_path
+        self.log = logging.getLogger('mine')
 
     def basic_accurate(self, image_content):
         """
@@ -65,8 +36,8 @@ class CharacterService(BaseService):
         # 解析结果
         result_list = []
         for word in baidu_result["words_result"]:
+            self.log.warning("The basic_accurate word is: %s" % word["words"])
             result_list.append(word["words"])
-        mine_logger.warning("The image ocr character is : {}", json.dumps(result_list))
         return result_list
 
     def idcard(self, image_content, id_card_side=ID_CARD_SIDE.FRONT.code):
@@ -78,13 +49,14 @@ class CharacterService(BaseService):
         """
         # 获取识别结果
         baidu_result = self.ocr.idcard(image_content, id_card_side)
-        print baidu_result
+        # mine_logger.warning("The image ocr character is : {}".format(json.dumps(baidu_result)))
+        self.log.warning(json.dumps(baidu_result))
+
         # 保存图片
         self._image_save(image_content)
 
         # 解析结果
         result_list = []
         for word in baidu_result["words_result"]:
-            result_list.append(word["words"])
-        mine_logger.warning("The image ocr character is : {}", str(result_list))
+            result_list.append(word)
         return result_list
