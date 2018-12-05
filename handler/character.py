@@ -20,7 +20,7 @@ class CharacterHandler(BaseHandler):
 
     def basic_accurate(self):
         """
-        图片上传
+        通用文字识别
         """
         image = self.request.files.get("image")
         if not image:
@@ -33,7 +33,7 @@ class CharacterHandler(BaseHandler):
 
     def idcard(self):
         """
-        图片上传
+        身份证识别
         """
         image = self.request.files.get("image")
         id_card_side = self.get_argument("id_card_side", ID_CARD_SIDE.FRONT.code)

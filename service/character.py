@@ -3,12 +3,11 @@
 """
 文字识别处理服务
 """
-import json
 import logging
 
 from service.baidu_ocr import ocr
 from service.base import BaseService
-from service.defines import ID_CARD_SIDE
+from service.defines import ID_CARD_SIDE, ID_CARD_PATTERN
 
 
 class CharacterService(BaseService):
@@ -49,14 +48,14 @@ class CharacterService(BaseService):
         """
         # 获取识别结果
         baidu_result = self.ocr.idcard(image_content, id_card_side)
-        # mine_logger.warning("The image ocr character is : {}".format(json.dumps(baidu_result)))
-        self.log.warning(json.dumps(baidu_result))
-
+        word_result = baidu_result["words_result"]
         # 保存图片
         self._image_save(image_content)
 
         # 解析结果
         result_list = []
-        for word in baidu_result["words_result"]:
-            result_list.append(word)
+        for word in word_result:
+            self.log.warning(":".join([word, word_result[word]["words"]]))
+            result = ID_CARD_PATTERN.format(word, word_result[word]["words"])
+            result_list.append(result)
         return result_list

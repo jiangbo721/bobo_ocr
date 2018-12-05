@@ -3,6 +3,9 @@
 """
 启动服务
 """
+import sys
+reload(sys)
+sys.setdefaultencoding('utf-8')
 import tornado.httpserver
 import tornado.ioloop
 import tornado.web
