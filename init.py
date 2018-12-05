@@ -3,16 +3,20 @@
 """
 启动服务
 """
-import tornado.ioloop
 import tornado.httpserver
+import tornado.ioloop
 import tornado.web
+from tornado.options import define, options
 
+define('runmode', default='local', help='local prod')
+tornado.options.parse_command_line()
+
+from conf.settings import ROOT_URL
 from conf.log import mine_logger
 from handler.character import CharacterHandler
-from handler.index import IndexHandler
 from handler.image import ImageHandler
+from handler.index import IndexHandler
 from handler.user import UserHandler
-
 
 class Application(tornado.web.Application):
     """
@@ -41,6 +45,8 @@ class Application(tornado.web.Application):
 
 if __name__ == "__main__":
     mine_logger.warning(" bobo_ocr is running!!")
+    mine_logger.warning("running at %s mode!!" % options.runmode)
+    mine_logger.warning("root url is %s !!" % ROOT_URL)
     app = Application()
     http_server = tornado.httpserver.HTTPServer(app)
 
