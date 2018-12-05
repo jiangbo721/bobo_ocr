@@ -1,6 +1,11 @@
 {% extends "../base.html" %}
 {% block title %}波波图像识别{%end%}
-{% block js %}
+{% block body_header%}
+    <div id="body_header" style="position: relative; top: 0;"></div>
+    <script src="http://pv.sohu.com/cityjson?ie=utf-8"></script>
+    <script>
+        document.getElementById("body_header").innerHTML = "欢迎您：来自" + returnCitySN['cname'] + "的朋友<br>您的IP是：" + returnCitySN['cip'] ;
+    </script>
 {% end %}
 {% block body%}
     <h1>波波图像识别</h1>
@@ -20,30 +25,21 @@
         请上传图片：<input name="image" type="file"><br>
         <input type="submit" value="提交">
     </form>
-    <div id="foot" style="position: fixed; bottom: 0;"></div>
-    <script src="http://pv.sohu.com/cityjson?ie=utf-8"></script>
     <script>
-        document.getElementById("foot").innerHTML = returnCitySN['cip'] + returnCitySN['cname'];
         OCR_SUB_TYPE = {};
         OCR_SUB_TYPE['character'] = [['basic_accurate', '通用文字识别'], ['idcard', '身份证识别']];
         OCR_SUB_TYPE['image'] = new Array(['image', '通用图像识别']);
 
-        // ACTION_URL = "http://106.12.206.135:8000/";
-
-        ACTION_URL = "http://127.0.0.1:8000/";
+        ACTION_URL = "{{ root_url }}";
 
         function set_sub_type(ocr_type, ocr_sub_type) {
             let sub_index;
 
             const type_value = ocr_type.value;
-            console.log('type_value', type_value);
             ocr_sub_type.length = 1;
 
             if (type_value === '0') return;
             if (typeof(OCR_SUB_TYPE[type_value]) === 'undefined') return;
-            console.log('OCR_SUB_TYPE[type_value]', OCR_SUB_TYPE[type_value]);
-            console.log('OCR_SUB_TYPE[type_value][0][0]', OCR_SUB_TYPE[type_value][0][0]);
-            console.log('OCR_SUB_TYPE[type_value][0][1]', OCR_SUB_TYPE[type_value][0][1]);
             for (i = 0; i < OCR_SUB_TYPE[type_value].length; i++) {
                 sub_index = i + 1;
                 new_option = new Option();
