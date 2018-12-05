@@ -18,7 +18,7 @@ class IndexHandler(BaseHandler):
         """
         self.render("index/index.html", root_url=ROOT_URL)
 
-    def post(self, module):
+    def post(self):
         """
         首页
         """
