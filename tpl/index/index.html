@@ -15,6 +15,7 @@
             <option value="0" selected>请选择识别的类型</option>
             <option value="character">文字识别</option>
             <option value="image">图像识别</option>
+            <option value="face">人脸识别</option>
         </select>
         <br />
         请选择您要识别的选项：
@@ -29,6 +30,7 @@
         OCR_SUB_TYPE = {};
         OCR_SUB_TYPE['character'] = [['basic_accurate', '通用文字识别'], ['idcard', '身份证识别']];
         OCR_SUB_TYPE['image'] = [['general_image', '通用图像识别'], ['dish_detect', '菜品识别']];
+        OCR_SUB_TYPE['face'] = [['detection', '人脸检测']];
 
         ACTION_URL = "{{ root_url }}";
 
