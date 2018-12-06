@@ -22,4 +22,4 @@ class IndexHandler(BaseHandler):
         """
         首页
         """
-        self.render("index/index.html")
+        self.render("index/index.html", root_url=ROOT_URL)
