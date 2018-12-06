@@ -1,9 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
-图像识别处理服务
+图像识别服务
 """
-import json
 import logging
 
 from service.baidu_ocr import image

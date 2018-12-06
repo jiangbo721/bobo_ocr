@@ -19,6 +19,6 @@ image = AipImageClassify(image_APP_ID, image_API_KEY, image_SECRET_KEY)
 
 # 人脸识别
 face_APP_ID = "15066160"
-face_API_KEY = "eIftSwlyrBcECm0T4hDlB3R5"
-face_SECRET_KEY = "1Xq85wRk7YRl8M1nnm6xKqP7rzPf6PN4"
+face_API_KEY = "4h5hph54DK2kYWwN2mfVe6cZ"
+face_SECRET_KEY = "x9LbeBxKrPGqg7b4vzek56sB7tyK6aw1"
 face = AipFace(face_APP_ID, face_API_KEY, face_SECRET_KEY)

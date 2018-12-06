@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
-文字识别处理服务
+基础服务
 """
 import datetime
 import logging
