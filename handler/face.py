@@ -29,10 +29,11 @@ class FaceHandler(BaseHandler):
         mine_logger.warning("进入人脸识别接口handler")
         image = self.request.files.get("image")
         image_type = self.get_argument("image_type", "BASE64")
+        max_face_num = self.get_argument("max_face_num", 10)
         if not image:
             self.finish("对不起，未检测到您上传的图片")
         image_content = image[0]["body"]
 
-        data = FaceService().detection(image_content, image_type)
+        data = FaceService().detection(image_content, image_type, max_face_num)
 
         self.render("image/ocr_result.html", data=data)
