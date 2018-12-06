@@ -20,6 +20,7 @@ from handler.character import CharacterHandler
 from handler.image import ImageHandler
 from handler.index import IndexHandler
 from handler.user import UserHandler
+from handler.face import FaceHandler
 
 class Application(tornado.web.Application):
     """
@@ -40,6 +41,7 @@ class Application(tornado.web.Application):
             (r"/user(/[a-z_A-Z/]*)?", UserHandler),
             (r"/character(/[a-z_A-Z/]*)?", CharacterHandler),
             (r"/image(/[a-z_A-Z/]*)?", ImageHandler),
+            (r"/face(/[a-z_A-Z/]*)?", FaceHandler),
 
         ]
 
